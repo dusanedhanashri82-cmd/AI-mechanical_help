@@ -33,141 +33,17 @@ username = st.session_state.get("username", "User")
 if "history" not in st.session_state:
     st.session_state["history"] = []
 
-# ============================================================
-# 2-WHEELER VEHICLE DATA
-# ============================================================
-
 vehicle_data = {
-
-    "Hero": {
-        "Splendor": "models/hero_splendor.glb",
-        "Splendor Plus": "models/hero_splendor_plus.glb",
-        "Passion": "models/hero_passion.glb",
-        "Passion Pro": "models/hero_passion_pro.glb",
-        "HF Deluxe": "models/hero_hf_deluxe.glb",
-        "HF Dawn": "models/hero_hf_dawn.glb",
-        "CD Dawn": "models/hero_cd_dawn.glb",
-        "CD Deluxe": "models/hero_cd_deluxe.glb",
-        "Glamour": "models/hero_glamour.glb",
-        "Karizma": "models/hero_karizma.glb",
-        "Karizma ZMR": "models/hero_karizma_zmr.glb",
-        "Xtreme": "models/hero_xtreme.glb",
-        "Xpulse 200": "models/hero_xpulse_200.glb",
-        "Maestro": "models/hero_maestro.glb",
-        "Pleasure": "models/hero_pleasure.glb"
-    },
-
-    "Honda": {
-        "Activa": "models/honda_activa.glb",
-        "Activa 3G": "models/honda_activa_3g.glb",
-        "Activa 4G": "models/honda_activa_4g.glb",
-        "Activa 5G": "models/honda_activa_5g.glb",
-        "Activa 6G": "models/honda_activa_6g.glb",
-        "Dio": "models/honda_dio.glb",
-        "Shine": "models/honda_shine.glb",
-        "CB Shine": "models/honda_cb_shine.glb",
-        "CB Unicorn": "models/honda_cb_unicorn.glb",
-        "Unicorn 160": "models/honda_unicorn_160.glb",
-        "Hornet 160R": "models/honda_hornet_160r.glb",
-        "CB200X": "models/honda_cb200x.glb",
-        "CBR250R": "models/honda_cbr250r.glb"
-    },
-
-    "Bajaj": {
-        "Pulsar 150": "models/bajaj_pulsar_150.glb",
-        "Pulsar 180": "models/bajaj_pulsar_180.glb",
-        "Pulsar 200": "models/bajaj_pulsar_200.glb",
-        "Pulsar 220F": "models/bajaj_pulsar_220f.glb",
-        "Pulsar 125": "models/bajaj_pulsar_125.glb",
-        "Pulsar NS160": "models/bajaj_pulsar_ns160.glb",
-        "Pulsar NS200": "models/bajaj_pulsar_ns200.glb",
-        "Discover 100": "models/bajaj_discover_100.glb",
-        "Discover 125": "models/bajaj_discover_125.glb",
-        "Discover 150": "models/bajaj_discover_150.glb",
-        "Platina": "models/bajaj_platina.glb",
-        "CT100": "models/bajaj_ct100.glb",
-        "Avenger": "models/bajaj_avenger.glb"
-    },
-
-    "TVS": {
-        "Apache RTR 160": "models/tvs_apache_rtr_160.glb",
-        "Apache RTR 180": "models/tvs_apache_rtr_180.glb",
-        "Apache RTR 200 4V": "models/tvs_apache_rtr_200_4v.glb",
-        "Apache RR 310": "models/tvs_apache_rr_310.glb",
-        "Star City": "models/tvs_star_city.glb",
-        "Star City Plus": "models/tvs_star_city_plus.glb",
-        "Sport": "models/tvs_sport.glb",
-        "Victor": "models/tvs_victor.glb",
-        "Radeon": "models/tvs_radeon.glb",
-        "Jupiter": "models/tvs_jupiter.glb",
-        "NTORQ 125": "models/tvs_ntorq_125.glb",
-        "Scooty Pep Plus": "models/tvs_scooty_pep_plus.glb",
-        "Zest": "models/tvs_zest.glb"
-    },
-
-    "Yamaha": {
-        "RX100": "models/yamaha_rx100.glb",
-        "RX135": "models/yamaha_rx135.glb",
-        "Crux": "models/yamaha_crux.glb",
-        "FZ16": "models/yamaha_fz16.glb",
-        "FZ-S": "models/yamaha_fz_s.glb",
-        "FZ25": "models/yamaha_fz25.glb",
-        "R15": "models/yamaha_r15.glb",
-        "R15 V2": "models/yamaha_r15_v2.glb",
-        "R15 V3": "models/yamaha_r15_v3.glb",
-        "R15 V4": "models/yamaha_r15_v4.glb",
-        "MT-15": "models/yamaha_mt15.glb",
-        "MT-03": "models/yamaha_mt03.glb",
-        "Fascino": "models/yamaha_fascino.glb",
-        "Ray": "models/yamaha_ray.glb",
-        "Ray ZR": "models/yamaha_ray_zr.glb",
-        "Aerox 155": "models/yamaha_aerox_155.glb"
-    },
-
-    "Suzuki": {
-        "Access 125": "models/suzuki_access_125.glb",
-        "Hayate": "models/suzuki_hayate.glb",
-        "Gixxer": "models/suzuki_gixxer.glb",
-        "Gixxer SF": "models/suzuki_gixxer_sf.glb",
-        "Intruder 150": "models/suzuki_intruder_150.glb",
-        "Burgman Street": "models/suzuki_burgman_street.glb",
-        "V-Strom 250": "models/suzuki_v_strom_250.glb"
-    },
-
-    "Royal Enfield": {
-        "Bullet 350": "models/re_bullet_350.glb",
-        "Classic 350": "models/re_classic_350.glb",
-        "Thunderbird 350": "models/re_thunderbird_350.glb",
-        "Thunderbird X": "models/re_thunderbird_x.glb",
-        "Electra": "models/re_electra.glb",
-        "Himalayan": "models/re_himalayan.glb",
-        "Interceptor 650": "models/re_interceptor_650.glb",
-        "Continental GT": "models/re_continental_gt.glb",
-        "Meteor 350": "models/re_meteor_350.glb",
-        "Hunter 350": "models/re_hunter_350.glb"
-    },
-
-    "KTM": {
-        "Duke 125": "models/ktm_duke_125.glb",
-        "Duke 200": "models/ktm_duke_200.glb",
-        "Duke 250": "models/ktm_duke_250.glb",
-        "Duke 390": "models/ktm_duke_390.glb",
-        "RC 125": "models/ktm_rc_125.glb",
-        "RC 200": "models/ktm_rc_200.glb",
-        "RC 390": "models/ktm_rc_390.glb",
-        "Adventure 250": "models/ktm_adventure_250.glb",
-        "Adventure 390": "models/ktm_adventure_390.glb"
-    },
-
-    "Mahindra": {
-        "Centuro": "models/mahindra_centuro.glb",
-        "Mojo": "models/mahindra_mojo.glb",
-        "Gusto": "models/mahindra_gusto.glb",
-        "Rodeo": "models/mahindra_rodeo.glb",
-        "Duro": "models/mahindra_duro.glb"
-    },
-
+    "Hero": {"Splendor": "models/hero_splendor.glb", "HF Deluxe": "models/hero_hf_deluxe.glb", "Passion": "models/hero_passion.glb", "Glamour": "models/hero_glamour.glb", "Xtreme 125R": "models/hero_xtreme_125r.glb"},
+    "Honda": {"Shine": "models/honda_shine.glb", "SP 125": "models/honda_sp125.glb", "Unicorn": "models/honda_unicorn.glb", "Activa": "models/honda_activa.glb", "Hornet 2.0": "models/honda_hornet_2.glb"},
+    "Bajaj": {"Pulsar 125": "models/bajaj_pulsar_125.glb", "Pulsar 150": "models/bajaj_pulsar_150.glb", "Pulsar NS200": "models/bajaj_pulsar_ns200.glb", "Platina": "models/bajaj_platina.glb", "Avenger": "models/bajaj_avenger.glb"},
+    "TVS": {"Apache RTR 160": "models/tvs_apache_rtr_160.glb", "Apache RTR 200": "models/tvs_apache_rtr_200.glb", "Raider": "models/tvs_raider.glb", "Sport": "models/tvs_sport.glb", "Jupiter": "models/tvs_jupiter.glb"},
+    "Yamaha": {"FZ": "models/yamaha_fz.glb", "MT-15": "models/yamaha_mt15.glb", "R15": "models/yamaha_r15.glb", "Fascino": "models/yamaha_fascino.glb", "Ray ZR": "models/yamaha_ray_zr.glb"},
+    "Suzuki": {"Access 125": "models/suzuki_access_125.glb", "Burgman Street": "models/suzuki_burgman_street.glb", "Gixxer": "models/suzuki_gixxer.glb", "Avenis": "models/suzuki_avenis.glb"},
+    "Royal Enfield": {"Classic 350": "models/re_classic_350.glb", "Bullet 350": "models/re_bullet_350.glb", "Hunter 350": "models/re_hunter_350.glb", "Meteor 350": "models/re_meteor_350.glb"},
 }
+
+
 
 # ============================================================
 # HEADER
@@ -436,36 +312,103 @@ alt="{company} {model} 3D Model">
 
 elif menu == "🔧 Vehicle Diagnosis":
 
-    st.header("🔧 2-Wheeler Vehicle Diagnosis")
+    st.header("🔧 AI Vehicle Diagnosis")
+    st.write("Describe your vehicle problem and get possible causes and recommended actions.")
+
+    # --------------------------------------------------------
+    # VEHICLE DATA
+    # --------------------------------------------------------
+
+    diagnosis_vehicle_data = {
+
+        "Hero": [
+            "Splendor",
+            "HF Deluxe",
+            "Passion",
+            "Glamour",
+            "Xtreme 125R"
+        ],
+
+        "Honda": [
+            "Shine",
+            "SP 125",
+            "Unicorn",
+            "Activa",
+            "Hornet 2.0"
+        ],
+
+        "Bajaj": [
+            "Pulsar 125",
+            "Pulsar 150",
+            "Pulsar NS200",
+            "Platina",
+            "Avenger"
+        ],
+
+        "TVS": [
+            "Apache RTR 160",
+            "Apache RTR 200",
+            "Raider",
+            "Sport",
+            "Jupiter"
+        ],
+
+        "Yamaha": [
+            "FZ",
+            "MT-15",
+            "R15",
+            "Fascino",
+            "Ray ZR"
+        ],
+
+        "Suzuki": [
+            "Access 125",
+            "Burgman Street",
+            "Gixxer",
+            "Avenis"
+        ],
+
+        "Royal Enfield": [
+            "Classic 350",
+            "Bullet 350",
+            "Hunter 350",
+            "Meteor 350"
+        ]
+    }
+
+    # --------------------------------------------------------
+    # VEHICLE SELECTION
+    # --------------------------------------------------------
 
     col1, col2 = st.columns(2)
 
     with col1:
 
         company = st.selectbox(
-            "Vehicle Company",
-            list(vehicle_data.keys()),
+            "🏍️ Vehicle Company",
+            list(diagnosis_vehicle_data.keys()),
             key="diagnosis_company"
         )
 
         model = st.selectbox(
-            "Vehicle Model",
-            list(vehicle_data[company].keys()),
+            "🏍️ Vehicle Model",
+            diagnosis_vehicle_data[company],
             key="diagnosis_model"
         )
 
     with col2:
 
         year = st.number_input(
-            "Manufacturing Year",
+            "📅 Manufacturing Year",
             min_value=2000,
             max_value=2026,
             value=2024,
+            step=1,
             key="diagnosis_year"
         )
 
         problem = st.selectbox(
-            "Select Vehicle Problem",
+            "⚠️ Select Vehicle Problem",
             [
                 "Engine Not Starting",
                 "Battery Problem",
@@ -482,54 +425,525 @@ elif menu == "🔧 Vehicle Diagnosis":
                 "Strange Noise",
                 "Electrical Problem",
                 "Other"
-            ]
+            ],
+            key="diagnosis_problem"
         )
 
+    # --------------------------------------------------------
+    # PROBLEM DESCRIPTION
+    # --------------------------------------------------------
+
     description = st.text_area(
-        "📝 Describe Your Problem"
+        "📝 Describe Your Problem",
+        placeholder="Example: Bike is not starting, starter is working but engine is not starting...",
+        height=130,
+        key="diagnosis_description"
     )
+
+    # --------------------------------------------------------
+    # DIAGNOSIS DATABASE
+    # --------------------------------------------------------
+
+    diagnosis_database = {
+
+        "Engine Not Starting": {
+
+            "causes": [
+                "Weak or discharged battery",
+                "Fuel supply problem",
+                "Spark plug problem",
+                "Engine kill switch may be OFF",
+                "Starter motor or ignition problem"
+            ],
+
+            "checks": [
+                "Check battery voltage",
+                "Check fuel level",
+                "Check spark plug",
+                "Check engine kill switch",
+                "Check starter motor"
+            ],
+
+            "solution": [
+                "Charge or replace the battery if required",
+                "Check fuel supply",
+                "Clean or replace the spark plug",
+                "Keep the engine kill switch in RUN position",
+                "Contact a mechanic if the starter motor has a fault"
+            ],
+
+            "severity": "HIGH"
+        },
+
+        "Battery Problem": {
+
+            "causes": [
+                "Battery discharged",
+                "Loose battery terminals",
+                "Battery is old",
+                "Charging system problem"
+            ],
+
+            "checks": [
+                "Check battery voltage",
+                "Check battery terminals",
+                "Check charging voltage",
+                "Check battery age"
+            ],
+
+            "solution": [
+                "Charge the battery",
+                "Clean and tighten terminals",
+                "Check alternator/charging system",
+                "Replace battery if it is damaged"
+            ],
+
+            "severity": "MEDIUM"
+        },
+
+        "Brake Problem": {
+
+            "causes": [
+                "Brake pad/shoe worn",
+                "Low brake fluid",
+                "Brake cable problem",
+                "Brake system adjustment required"
+            ],
+
+            "checks": [
+                "Inspect brake pads",
+                "Check brake fluid",
+                "Check brake lever/pedal",
+                "Check brake cable"
+            ],
+
+            "solution": [
+                "Replace worn brake pads",
+                "Top up or replace brake fluid as specified",
+                "Adjust or replace brake cable",
+                "Have the brake system inspected by a mechanic"
+            ],
+
+            "severity": "CRITICAL"
+        },
+
+        "Tyre Problem": {
+
+            "causes": [
+                "Low tyre pressure",
+                "Puncture",
+                "Tyre wear",
+                "Wheel alignment problem"
+            ],
+
+            "checks": [
+                "Check tyre pressure",
+                "Inspect tyre for puncture",
+                "Check tread depth",
+                "Inspect wheel alignment"
+            ],
+
+            "solution": [
+                "Set correct tyre pressure",
+                "Repair puncture if possible",
+                "Replace badly worn tyre",
+                "Check wheel alignment"
+            ],
+
+            "severity": "HIGH"
+        },
+
+        "Engine Overheating": {
+
+            "causes": [
+                "Low engine oil",
+                "Cooling system problem",
+                "Engine running under excessive load",
+                "Blocked air flow"
+            ],
+
+            "checks": [
+                "Check engine oil level",
+                "Check cooling system",
+                "Check for unusual engine noise",
+                "Check air flow"
+            ],
+
+            "solution": [
+                "Maintain correct engine oil level",
+                "Allow the engine to cool",
+                "Check cooling system",
+                "Contact a mechanic if overheating continues"
+            ],
+
+            "severity": "HIGH"
+        },
+
+        "Oil Leakage": {
+
+            "causes": [
+                "Loose drain bolt",
+                "Damaged oil seal",
+                "Gasket leakage",
+                "Engine component leakage"
+            ],
+
+            "checks": [
+                "Identify leakage location",
+                "Check drain bolt",
+                "Check oil seals",
+                "Check engine gasket"
+            ],
+
+            "solution": [
+                "Tighten loose fasteners where appropriate",
+                "Replace damaged seals",
+                "Replace damaged gasket",
+                "Check oil level and repair the leak"
+            ],
+
+            "severity": "HIGH"
+        },
+
+        "Chain/Sprocket Problem": {
+
+            "causes": [
+                "Chain too loose",
+                "Chain too tight",
+                "Poor lubrication",
+                "Worn sprocket"
+            ],
+
+            "checks": [
+                "Check chain slack",
+                "Inspect sprocket teeth",
+                "Check chain lubrication",
+                "Check chain condition"
+            ],
+
+            "solution": [
+                "Adjust chain slack",
+                "Lubricate the chain",
+                "Replace worn chain/sprocket",
+                "Perform regular chain maintenance"
+            ],
+
+            "severity": "MEDIUM"
+        },
+
+        "Clutch Problem": {
+
+            "causes": [
+                "Incorrect clutch adjustment",
+                "Worn clutch plates",
+                "Clutch cable problem",
+                "Low/incorrect engine oil"
+            ],
+
+            "checks": [
+                "Check clutch free play",
+                "Check clutch cable",
+                "Check clutch operation",
+                "Inspect clutch plates if required"
+            ],
+
+            "solution": [
+                "Adjust clutch free play",
+                "Lubricate or replace cable",
+                "Replace worn clutch components",
+                "Use the manufacturer-recommended oil"
+            ],
+
+            "severity": "MEDIUM"
+        },
+
+        "Gear Shifting Problem": {
+
+            "causes": [
+                "Clutch adjustment problem",
+                "Low or incorrect oil",
+                "Gear linkage problem",
+                "Internal transmission problem"
+            ],
+
+            "checks": [
+                "Check clutch operation",
+                "Check engine oil",
+                "Inspect gear lever/linkage",
+                "Check for abnormal noises"
+            ],
+
+            "solution": [
+                "Adjust clutch",
+                "Check and replace oil if necessary",
+                "Inspect gear linkage",
+                "Consult a qualified mechanic for internal faults"
+            ],
+
+            "severity": "HIGH"
+        },
+
+        "Poor Mileage": {
+
+            "causes": [
+                "Dirty air filter",
+                "Incorrect tyre pressure",
+                "Poor riding conditions",
+                "Spark plug problem",
+                "Fuel system problem"
+            ],
+
+            "checks": [
+                "Check air filter",
+                "Check tyre pressure",
+                "Inspect spark plug",
+                "Check fuel system"
+            ],
+
+            "solution": [
+                "Clean or replace air filter",
+                "Maintain correct tyre pressure",
+                "Service spark plug",
+                "Check fuel system"
+            ],
+
+            "severity": "MEDIUM"
+        },
+
+        "Low Pickup": {
+
+            "causes": [
+                "Dirty air filter",
+                "Spark plug problem",
+                "Clutch slipping",
+                "Fuel delivery problem"
+            ],
+
+            "checks": [
+                "Check air filter",
+                "Check spark plug",
+                "Check clutch",
+                "Check fuel system"
+            ],
+
+            "solution": [
+                "Clean or replace air filter",
+                "Clean or replace spark plug",
+                "Inspect clutch",
+                "Service fuel system"
+            ],
+
+            "severity": "MEDIUM"
+        },
+
+        "Excessive Smoke": {
+
+            "causes": [
+                "Engine oil burning",
+                "Air filter problem",
+                "Fuel mixture problem",
+                "Engine wear"
+            ],
+
+            "checks": [
+                "Identify smoke color",
+                "Check engine oil level",
+                "Check air filter",
+                "Check engine condition"
+            ],
+
+            "solution": [
+                "Check oil level",
+                "Service air filter",
+                "Inspect fuel system",
+                "Get engine inspected if smoke continues"
+            ],
+
+            "severity": "HIGH"
+        },
+
+        "Strange Noise": {
+
+            "causes": [
+                "Loose component",
+                "Low engine oil",
+                "Chain problem",
+                "Engine component wear"
+            ],
+
+            "checks": [
+                "Identify noise location",
+                "Check engine oil",
+                "Check chain",
+                "Inspect loose components"
+            ],
+
+            "solution": [
+                "Tighten loose components",
+                "Maintain correct oil level",
+                "Adjust/lubricate chain",
+                "Get the vehicle inspected if noise continues"
+            ],
+
+            "severity": "HIGH"
+        },
+
+        "Electrical Problem": {
+
+            "causes": [
+                "Blown fuse",
+                "Weak battery",
+                "Loose wiring",
+                "Faulty switch"
+            ],
+
+            "checks": [
+                "Check battery",
+                "Check fuses",
+                "Inspect wiring",
+                "Check switches"
+            ],
+
+            "solution": [
+                "Charge or replace battery",
+                "Replace blown fuse with correct rating",
+                "Repair loose wiring",
+                "Get electrical system inspected"
+            ],
+
+            "severity": "MEDIUM"
+        },
+
+        "Other": {
+
+            "causes": [
+                "Problem requires additional inspection"
+            ],
+
+            "checks": [
+                "Describe the symptoms clearly",
+                "Check for unusual sounds, smells or warning lights"
+            ],
+
+            "solution": [
+                "Consult a qualified mechanic for detailed inspection"
+            ],
+
+            "severity": "UNKNOWN"
+        }
+    }
+
+    # --------------------------------------------------------
+    # DIAGNOSE BUTTON
+    # --------------------------------------------------------
 
     if st.button(
         "🔧 Diagnose Vehicle",
-        use_container_width=True
+        use_container_width=True,
+        type="primary"
     ):
 
         if not description.strip():
 
             st.warning(
-                "⚠️ Please describe your vehicle problem."
+                "⚠️ Please describe your vehicle problem first."
             )
 
         else:
 
+            result = diagnosis_database[problem]
+
             st.success(
-                "✅ Diagnosis Request Processed"
+                "✅ Diagnosis Completed"
+            )
+
+            # ------------------------------------------------
+            # VEHICLE INFORMATION
+            # ------------------------------------------------
+
+            st.subheader("🏍️ Vehicle Information")
+
+            st.write(
+                f"**Vehicle:** {company} {model}"
             )
 
             st.write(
-                "🏍️ Vehicle:",
-                company,
-                model
+                f"**Manufacturing Year:** {year}"
             )
 
             st.write(
-                "📅 Year:",
-                year
+                f"**Problem:** {problem}"
             )
 
             st.write(
-                "⚠️ Problem:",
-                problem
+                f"**Description:** {description}"
             )
 
-            st.write(
-                "📝 Description:",
-                description
-            )
+            # ------------------------------------------------
+            # SEVERITY
+            # ------------------------------------------------
+
+            severity = result["severity"]
+
+            if severity == "CRITICAL":
+
+                st.error(
+                    "🚨 Severity: CRITICAL — Avoid riding until the brake problem is inspected."
+                )
+
+            elif severity == "HIGH":
+
+                st.warning(
+                    "⚠️ Severity: HIGH — Vehicle inspection is recommended soon."
+                )
+
+            elif severity == "MEDIUM":
+
+                st.info(
+                    "🟡 Severity: MEDIUM — Check the listed components."
+                )
+
+            else:
+
+                st.info(
+                    "ℹ️ Severity: UNKNOWN — Further inspection is required."
+                )
+
+            # ------------------------------------------------
+            # POSSIBLE CAUSES
+            # ------------------------------------------------
+
+            st.subheader("🔍 Possible Causes")
+
+            for cause in result["causes"]:
+                st.write("• " + cause)
+
+            # ------------------------------------------------
+            # CHECK THESE FIRST
+            # ------------------------------------------------
+
+            st.subheader("🛠️ Recommended Checks")
+
+            for check in result["checks"]:
+                st.write("☑️ " + check)
+
+            # ------------------------------------------------
+            # RECOMMENDED ACTION
+            # ------------------------------------------------
+
+            st.subheader("💡 Recommended Action")
+
+            for solution in result["solution"]:
+                st.write("🔧 " + solution)
+
+            # ------------------------------------------------
+            # FINAL MESSAGE
+            # ------------------------------------------------
 
             st.info(
-                "🤖 AI diagnosis model can be connected here using "
-                "your machine-learning model and maintenance dataset."
+                "🤖 This diagnosis provides possible causes based "
+                "on the selected symptom. It is not a substitute "
+                "for professional mechanical inspection."
             )
 
 # ============================================================
