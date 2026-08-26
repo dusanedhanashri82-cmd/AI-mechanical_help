@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 import pandas as pd
 from datetime import date, timedelta
@@ -1748,7 +1747,6 @@ elif menu == "🚪 Logout":
             "✅ Logged out successfully!"
         )
 
-=======
 import streamlit as st
 import pandas as pd
 from datetime import date, timedelta
@@ -3498,5 +3496,4 @@ elif menu == "🚪 Logout":
             "✅ Logged out successfully!"
         )
 
->>>>>>> 0069cd2fe8e4cdbb17dc0a6a482adaa93713a609
         st.switch_page("app.py")
