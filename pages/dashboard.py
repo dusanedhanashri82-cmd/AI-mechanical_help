@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 from datetime import date, timedelta
 import streamlit.components.v1 as components
-from pathlib import Path
-import base64
 import re
 import numpy as np
 from sklearn.pipeline import Pipeline
@@ -391,26 +389,17 @@ def maintenance_label(probability):
 
 
 # ============================================================
-# LOGIN PROTECTION
+# LOGIN / GUEST ACCESS
 # ============================================================
-# IMPORTANT:
-# dashboard.py should normally be opened from app.py after login.
-# We do NOT use st.switch_page("app.py") here because that was the
-# direct cause of the error shown in your screenshot when the page
-# was opened without a valid page route/session.
-if not st.session_state.get("logged_in", False):
-    st.warning("⚠️ Please login first.")
-    st.info("Open the main app/login page and sign in before opening Dashboard.")
-
-    # This link works when app.py is the Streamlit main file.
-    try:
-        st.page_link("app.py", label="🔐 Go to Login", icon="🔐")
-    except Exception:
-        st.write("Please open the main application page to log in.")
-
-    st.stop()
-
-username = st.session_state.get("username", "User")
+# Login/Register is OPTIONAL.
+# Users who are not logged in can directly use the dashboard as Guest.
+if st.session_state.get("logged_in", False):
+    username = st.session_state.get("username", "User")
+    guest_mode = False
+else:
+    username = "Guest"
+    guest_mode = True
+    st.session_state["guest_mode"] = True
 
 
 # ============================================================
@@ -471,6 +460,28 @@ vehicle_data = {
 # HEADER
 # ============================================================
 st.title("🤖 AI Mechanical Help Center")
+
+if guest_mode:
+    st.info("👤 Guest Mode: You can use the dashboard without Login or Registration.")
+
+    login_col, guest_col = st.columns(2)
+
+    with login_col:
+        try:
+            st.page_link(
+                "app.py",
+                label="🔐 Login / Register",
+                icon="🔐"
+            )
+        except Exception:
+            st.caption("Open the main application page to Login / Register.")
+
+    with guest_col:
+        st.success("🚀 You are continuing as Guest.")
+
+else:
+    st.success(f"👋 Welcome back, {username}!")
+
 st.subheader(
     f"🏍️ Smart Self-Service Assistant for 2-Wheelers | Welcome {username} 👋"
 )
@@ -486,7 +497,6 @@ menu = st.sidebar.radio(
     "Select Option",
     [
         "🏠 Home",
-        "🏍️ 3D Bike View",
         "🔧 Vehicle Diagnosis",
         "🛠 Maintenance Tips",
         "📋 Service History",
@@ -569,113 +579,6 @@ if menu == "🏠 Home":
     st.info(
         "💡 Select an option from the left menu to use the vehicle services."
     )
-
-
-# ============================================================
-# 3D BIKE VIEW
-# ============================================================
-elif menu == "🏍️ 3D Bike View":
-    st.header("🏍️ 360° 2-Wheeler Viewer")
-    st.info("Select your company and model to view the 3D vehicle.")
-
-    company = st.selectbox(
-        "Select Vehicle Company",
-        list(vehicle_data.keys()),
-        key="viewer_company",
-    )
-
-    model = st.selectbox(
-        "Select Vehicle Model",
-        list(vehicle_data[company].keys()),
-        key="viewer_model",
-    )
-
-    model_path = vehicle_data[company][model]
-    base_dir = Path(__file__).resolve().parent
-    model_file = base_dir / model_path
-
-    st.write("📁 3D Model Path:")
-    st.code(str(model_file))
-
-    if not model_file.exists():
-        st.error("❌ 3D model file not found!")
-        st.write("Expected location:")
-        st.code(str(model_file))
-        st.warning(
-            f"Create the folder 'models' beside dashboard.py and place "
-            f"the GLB file for {company} {model} inside it."
-        )
-    else:
-        st.success(f"✅ {company} {model} 3D model found!")
-
-        try:
-            with open(model_file, "rb") as file:
-                model_bytes = file.read()
-
-            model_base64 = base64.b64encode(model_bytes).decode("utf-8")
-            model_url = (
-                "data:model/gltf-binary;base64,"
-                + model_base64
-            )
-
-            html = f"""
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<script type="module"
-src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-</script>
-<style>
-html, body {{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #eeeeee;
-}}
-model-viewer {{
-    width: 100%;
-    height: 650px;
-    background: #eeeeee;
-    border-radius: 15px;
-}}
-</style>
-</head>
-<body>
-<model-viewer
-    src="{model_url}"
-    camera-controls
-    auto-rotate
-    auto-rotate-delay="0"
-    rotation-per-second="20deg"
-    shadow-intensity="1"
-    exposure="1"
-    camera-orbit="0deg 75deg 3m"
-    field-of-view="30deg"
-    interaction-prompt="auto"
-    loading="eager"
-    reveal="auto"
-    alt="{company} {model} 3D Model">
-</model-viewer>
-</body>
-</html>
-"""
-
-            components.html(
-                html,
-                height=700,
-                scrolling=False,
-            )
-
-            st.info(
-                "🖱️ Drag = Rotate | 🔍 Scroll = Zoom | 🔄 Auto-rotate = ON"
-            )
-
-        except Exception as exc:
-            st.error("❌ Error loading the 3D model")
-            st.exception(exc)
 
 
 # ============================================================
@@ -1589,19 +1492,37 @@ elif menu == "📞 Contact Support":
 # LOGOUT
 # ============================================================
 elif menu == "🚪 Logout":
-    st.warning("🚪 Are you sure you want to logout?")
+    if guest_mode:
+        st.header("👤 Guest Mode")
+        st.info("You are currently using the dashboard as a Guest.")
+        st.write("Login or Register if you want to use the application with your account.")
 
-    if st.button(
-        "🚪 Logout Now",
-        use_container_width=True,
-        key="logout_button",
-    ):
-        st.session_state["logged_in"] = False
-        st.session_state["username"] = None
-        st.success("✅ Logged out successfully!")
-
-        # Return to the main page if possible.
         try:
-            st.page_link("app.py", label="🔐 Return to Login", icon="🔐")
+            st.page_link(
+                "app.py",
+                label="🔐 Login / Register",
+                icon="🔐"
+            )
         except Exception:
-            st.info("Please open the main app page to log in again.")
+            st.info("Please open the main application page to Login / Register.")
+    else:
+        st.warning("🚪 Are you sure you want to logout?")
+
+        if st.button(
+            "🚪 Logout Now",
+            use_container_width=True,
+            key="logout_button",
+        ):
+            st.session_state["logged_in"] = False
+            st.session_state["username"] = None
+            st.session_state["guest_mode"] = True
+            st.success("✅ Logged out successfully!")
+
+            try:
+                st.page_link(
+                    "app.py",
+                    label="🔐 Return to Login / Register",
+                    icon="🔐"
+                )
+            except Exception:
+                st.info("You can continue using the dashboard as a Guest.")
